@@ -53,4 +53,14 @@ public:
         return s;
     }
 };
+```
+# Approach:
+1. Take two variable and track the ocuurance of first and last character. This is to remove the spaces at the starting and ending of the string;
+2.After getting the position make a substr to store the trimmed string.
+3.Next up is to deal with the space in between so for that make a new string named s and iterate over the substr previously made and store the correct string(with only necessery spaces)
+4.Reverse the String s.
+5.now identify and reverse the words.
+
+###Time Complexity:O(n)
+
 
