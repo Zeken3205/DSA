@@ -40,7 +40,7 @@ bool hasCycle(ListNode *head) {
     ListNode *tortoise = head;
     ListNode *hare = head;
     
-    while (hare != nullptr && hare->next != nullptr) {
+    while (hare != nullptr && hare->next != nullptr) { //hare->next != nullptr here we did this because if hare->next is null then hare->next-> next will be null->next which will throw error
         tortoise = tortoise->next;
         hare = hare->next->next;
         
@@ -76,3 +76,4 @@ int main() {
     return 0;
 }
 ```
+If u want Visualization U can check out [Striver sheet detect loop in linked list](https://takeuforward.org/data-structure/detect-a-cycle-in-a-linked-list/)
