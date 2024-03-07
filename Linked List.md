@@ -434,7 +434,7 @@ Node* insertBeforeValue(Node* head, int x, int val){
 
 **Time Complexity: O(n)**
 
-## Middle of the Linked List
+## 876.Middle of the Linked List
 
 This function returns the middle node of a singly linked list. If there are two middle nodes, it returns the second middle node.
 
@@ -498,7 +498,7 @@ public:
 **Approach:** Floyd's Tortoise and Hare algorithm
 
 
-## Reverse a Linked List (Iterative)
+## 206.Reverse a Linked List (Iterative)
 
 This function reverses a given singly linked list iteratively and returns the head of the reversed list.
 
@@ -537,11 +537,10 @@ public:
 - 5. Move `prev` to `curr` and `curr` to `f`.
 - 6. After the loop, `prev` will point to the new head of the reversed list. Return `prev`.
 
-### Time Complexity:
-The time complexity of reversing a linked list iteratively is O(n), where 'n' is the number of nodes in the list, as it requires traversing the entire list once.
+**Time Complexity:O(n)** as it requires traversing the entire list once.
 
 
-## Detect a Cycle in a Linked List
+## 141.Detect a Loop in a Linked List
 
 This function detects if a given singly linked list contains a cycle (i.e., a loop) or not.
 Given head, the head of a linked list, determine if the linked list has a cycle in it.
@@ -588,7 +587,7 @@ public:
 - If the fast pointer reaches the end of the list (i.e., becomes NULL), it means there is no cycle, and the function returns false.
 
 
-## Find the Starting Point of a Cycle in a Linked List
+## 142.Find the Starting Point of a Cycle in a Linked List
 
 This function finds the starting point of a cycle in a given singly linked list.
 
@@ -637,7 +636,7 @@ Time Complexity:
 The time complexity of finding the starting point of a cycle in a linked list using Floyd's Tortoise and Hare algorithm is O(n), where 'n' is the number of nodes in the list. This algorithm involves traversing the list at most twice, making it efficient.
 
 
-## Palindrome Linked List
+## 234.Palindrome Linked List
 
 This function checks whether a given singly linked list is a palindrome or not.
 
@@ -680,6 +679,176 @@ public:
 - Repeat this process until start crosses end or until the entire vector is checked.
 - If all elements are equal, return true (indicating the list is a palindrome).
   
-**Time Complexity:**
-The time complexity of checking whether a linked list is a palindrome using this approach is O(n), where 'n' is the number of nodes in the list. This is because the algorithm traverses the entire list once to store the values in the vector and then compares the elements in the vector, which also takes linear time.
+**Time Complexity:O(n)** 
+-This is because the algorithm traverses the entire list once to store the values in the vector and then compares the elements in the vector, which also takes linear time.
+
+## 328.Odd Even Linked List
+
+This function rearranges a given singly linked list such that all the odd-indexed nodes come before the even-indexed nodes.
+
+Given the head of a singly linked list, group all the nodes with odd indices together followed by the nodes with even indices, and return the reordered list.
+
+The first node is considered odd, and the second node is even, and so on.
+
+Note that the relative order inside both the even and odd groups should remain as it was in the input.
+
+You must solve the problem in O(1) extra space complexity and O(n) time complexity.
+
+```cpp
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* oddEvenList(ListNode* head) {
+        if (!head || !head->next)
+            return head; // No need to rearrange if the list is empty or has only one node
+
+        ListNode* odd = head;
+        ListNode* even = head->next;
+        ListNode* evenHead = even; // Head of the even-indexed list
+
+        while (even && even->next) {
+            odd->next = even->next; // Link odd nodes
+            odd = odd->next;
+            even->next = odd->next; // Link even nodes
+            even = even->next;
+        }
+
+        odd->next = evenHead; // Connect the end of odd list to the start of even list
+
+        return head;
+    }
+};
+```
+**Approach:**
+- If the list is empty or has only one node, there's no need to rearrange it, so return the head.
+- Initialize two pointers, odd and even, to the first and second nodes of the list, respectively.
+- Create a pointer evenHead to store the head of the even-indexed list.
+- Traverse the list, linking odd and even nodes separately.
+- Update the odd pointer to the next odd node and the even pointer to the next even node.
+- Connect the end of the odd-indexed list to the head of the even-indexed list.
+- Return the head of the rearranged list.
+  
+**Time Complexity: O(n)** 
+-This is because the algorithm traverses the entire list once to rearrange the nodes.
+
+
+## 19.Remove the Nth Node from the End of the Linked List
+
+This function removes the 'n'th node from the end of a given singly linked list and returns the head of the modified list.
+
+```cpp
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        int cnt = 0;
+        ListNode *temp = head;
+        
+        // Count the number of nodes in the list
+        while (temp) {
+            cnt++;
+            temp = temp->next;
+        }
+        
+        // Calculate the position of the node to be removed from the beginning
+        cnt = cnt - n;
+        temp = head;
+        
+        // If the node to be removed is the head node
+        if (cnt == 0) {
+            return head->next;
+        }
+        
+        // Traverse to the node just before the one to be removed
+        int k = 1;
+        while (k != cnt) {
+            temp = temp->next;
+            k++;
+        }
+        
+        // Remove the 'n'th node from the end
+        ListNode* toDelete = temp->next;
+        temp->next = toDelete->next;
+        delete toDelete;
+        
+        return head;
+    }
+};
+```
+
+**Approach:**
+- Count the number of nodes in the linked list to determine the position of the 'n'th node from the end.
+- Traverse the list again to reach the node just before the 'n'th node from the end.
+- Remove the 'n'th node by updating the next pointer of the previous node to skip over the 'n'th node.
+- Delete the 'n'th node to free up memory.
+- Return the head of the modified list.
+  
+**Time Complexity:O(n)**
+- This is because the algorithm traverses the list twice: once to count the nodes and once to reach the node just before the 'n'th node from the end.
+
+## Delete the Middle Node of the Linked List
+
+This function deletes the middle node of a given singly linked list. If the list has an even number of nodes, it deletes the second middle node.
+
+```cpp
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* deleteMiddle(ListNode* head) {
+        if (head->next == NULL)
+            return NULL; // There is only one node, so there is no middle node to delete
+        
+        ListNode *slow = head, *fast = head;
+        
+        // Move slow pointer one step at a time and fast pointer two steps at a time until fast reaches the end
+        while (fast->next->next != NULL && fast->next->next->next != NULL) {
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+        
+        // Delete the middle node by skipping it in the list
+        slow->next = slow->next->next;
+        
+        return head;
+    }
+};
+```
+
+**Approach:**
+- If the list has only one node, there is no middle node to delete, so return NULL.
+- Initialize two pointers, slow and fast, to the head of the list.
+- Traverse the list with the fast pointer moving two steps at a time and the slow pointer moving one step at a time.
+- When the fast pointer reaches the end of the list, the slow pointer will be at the middle node or the first middle node in case of an even number of nodes.
+- Delete the middle node by skipping it in the list.
+- Return the head of the modified list.
+  
+**Time Complexity:O(n)**
+- This is because the algorithm traverses the list once to reach the middle node.
 
