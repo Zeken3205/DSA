@@ -510,3 +510,50 @@ public:
 
 ### Time Complexity:
 The time complexity of reversing a linked list iteratively is O(n), where 'n' is the number of nodes in the list, as it requires traversing the entire list once.
+
+
+## Detect a Cycle in a Linked List
+
+This function detects if a given singly linked list contains a cycle (i.e., a loop) or not.
+Given head, the head of a linked list, determine if the linked list has a cycle in it.
+
+There is a cycle in a linked list if there is some node in the list that can be reached again by continuously following the next pointer. Internally, pos is used to denote the index of the node that tail's next pointer is connected to. Note that pos is not passed as a parameter.
+
+Return true if there is a cycle in the linked list. Otherwise, return false.
+
+```cpp
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    bool hasCycle(ListNode *head) {
+        if (!head || !head->next || !head->next->next) 
+            return false;
+        ListNode *slow = head;
+        ListNode *fast = head;
+        while (fast != NULL && fast->next != NULL) { // if fast->next is null then fast->next->next will mean null->next which produces error.
+            fast = fast->next->next;
+            slow = slow->next;
+            if (slow == fast) {
+                return true;
+            }
+        }
+        return false;
+    }
+};
+```
+## Approach:
+- The solution uses the Floyd's Tortoise and Hare algorithm to detect a cycle in a linked list.
+- Two pointers, slow and fast, are initialized to the head of the list.
+- In each iteration, the slow pointer moves one step ahead while the fast pointer moves two steps ahead.
+- If there is a cycle, eventually the fast pointer will catch up with or overtake the slow pointer.
+- If at any point during the traversal, the slow and fast pointers meet, it indicates the presence of a cycle, and the function returns true.
+- If the fast pointer reaches the end of the list (i.e., becomes NULL), it means there is no cycle, and the function returns false.
+
+
