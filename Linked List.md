@@ -804,7 +804,7 @@ public:
 **Time Complexity:O(n)**
 - This is because the algorithm traverses the list twice: once to count the nodes and once to reach the node just before the 'n'th node from the end.
 
-## Delete the Middle Node of the Linked List
+## 2095.Delete the Middle Node of the Linked List
 
 This function deletes the middle node of a given singly linked list. If the list has an even number of nodes, it deletes the second middle node.
 
