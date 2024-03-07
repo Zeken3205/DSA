@@ -466,8 +466,37 @@ public:
         return head;
     }
 };
-
+```
 **Time Complexity: O(n)**
+
+
+## Another method(Tortoise hare Floyd's Tortoise and Hare algorithm /Fast Slow Method)
+
+```cpp
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* middleNode(ListNode* head) {
+        ListNode *slow=head,*fast=head;
+        while(fast!=NULL&&fast->next!=NULL){
+            slow=slow->next;
+            fast=fast->next->next;
+        }
+        return slow;
+    }
+};
+```
+**Approach:** Floyd's Tortoise and Hare algorithm
+
 
 ## Reverse a Linked List (Iterative)
 
@@ -499,7 +528,7 @@ public:
     }
 };
 ```
-### Approach:
+**Aproach:**
 
 - 1. Initialize two pointers `prev` and `curr` to `NULL` and `head` respectively.
 - 2. Traverse the list until `curr` becomes `NULL`.
@@ -550,7 +579,7 @@ public:
     }
 };
 ```
-## Approach:
+**Aproach:**
 - The solution uses the Floyd's Tortoise and Hare algorithm to detect a cycle in a linked list.
 - Two pointers, slow and fast, are initialized to the head of the list.
 - In each iteration, the slow pointer moves one step ahead while the fast pointer moves two steps ahead.
@@ -597,7 +626,7 @@ public:
     }
 };
 ```
-## Aproach:
+**Aproach:**
 - Initialize two pointers, slow and fast, to the head of the linked list.
 - Traverse the list with the fast pointer moving two steps at a time and the slow pointer moving one step at a time.
 - If the pointers meet (i.e., there's a cycle), set a flag s to indicate it.
@@ -607,4 +636,50 @@ public:
 Time Complexity:
 The time complexity of finding the starting point of a cycle in a linked list using Floyd's Tortoise and Hare algorithm is O(n), where 'n' is the number of nodes in the list. This algorithm involves traversing the list at most twice, making it efficient.
 
+
+## Palindrome Linked List
+
+This function checks whether a given singly linked list is a palindrome or not.
+
+```cpp
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    bool isPalindrome(ListNode* head) {
+        vector<int> n;
+        ListNode* temp = head;
+        while (temp != NULL) {
+            n.push_back(temp->val);
+            temp = temp->next;
+        }
+        int start = 0, end = n.size() - 1;
+        while (start <= end) {
+            if (n[start] != n[end]) return false;
+            start++;
+            end--;
+        }
+        return true;
+    }
+};
+```
+**Approach:**
+- Traverse the given linked list and store the values of each node in a vector.
+- Use two pointers (start and end) initialized to the beginning and end of the vector, respectively.
+- Compare elements at start and end positions of the vector.
+- If the elements are not equal, return false (indicating the list is not a palindrome).
+- Move the start pointer towards the end of the vector and the end pointer towards the beginning of the vector.
+- Repeat this process until start crosses end or until the entire vector is checked.
+- If all elements are equal, return true (indicating the list is a palindrome).
+  
+**Time Complexity:**
+The time complexity of checking whether a linked list is a palindrome using this approach is O(n), where 'n' is the number of nodes in the list. This is because the algorithm traverses the entire list once to store the values in the vector and then compares the elements in the vector, which also takes linear time.
 
