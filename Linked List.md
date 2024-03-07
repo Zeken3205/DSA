@@ -521,6 +521,8 @@ There is a cycle in a linked list if there is some node in the list that can be 
 
 Return true if there is a cycle in the linked list. Otherwise, return false.
 
+### Algorithm: Floyd's Tortoise and Hare algorithm
+
 ```cpp
 /**
  * Definition for singly-linked list.
@@ -555,5 +557,54 @@ public:
 - If there is a cycle, eventually the fast pointer will catch up with or overtake the slow pointer.
 - If at any point during the traversal, the slow and fast pointers meet, it indicates the presence of a cycle, and the function returns true.
 - If the fast pointer reaches the end of the list (i.e., becomes NULL), it means there is no cycle, and the function returns false.
+
+
+## Find the Starting Point of a Cycle in a Linked List
+
+This function finds the starting point of a cycle in a given singly linked list.
+
+### Algorithm: Floyd's Tortoise and Hare algorithm
+
+```cpp
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode *detectCycle(ListNode *head) {
+        ListNode *slow = head, *fast = head;
+        int s = 0;
+        if (!(fast && fast->next && fast->next->next)) return NULL;
+        while (fast != nullptr && fast->next != nullptr) {
+            fast = fast->next->next;
+            slow = slow->next;
+            if (slow == fast) {
+                s = 1;
+                break;
+            }
+        }
+        if (s == 0) return NULL;
+        while (head != slow) {
+            slow = slow->next;
+            head = head->next;
+        }
+        return head;
+    }
+};
+```
+## Aproach:
+- Initialize two pointers, slow and fast, to the head of the linked list.
+- Traverse the list with the fast pointer moving two steps at a time and the slow pointer moving one step at a time.
+- If the pointers meet (i.e., there's a cycle), set a flag s to indicate it.
+- If there's no cycle (s remains 0), return NULL.
+- Once a cycle is detected, reset one of the pointers to the head of the list and move both pointers one step at a time until they meet again. The meeting point is the starting point of the cycle.
+
+Time Complexity:
+The time complexity of finding the starting point of a cycle in a linked list using Floyd's Tortoise and Hare algorithm is O(n), where 'n' is the number of nodes in the list. This algorithm involves traversing the list at most twice, making it efficient.
 
 
