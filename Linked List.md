@@ -501,12 +501,12 @@ public:
 ```
 ### Approach:
 
--1. Initialize two pointers `prev` and `curr` to `NULL` and `head` respectively.
--2. Traverse the list until `curr` becomes `NULL`.
--3. Inside the loop, store the next node of `curr` in a temporary variable `f`.
--4. Set the next pointer of `curr` to `prev`.
--5. Move `prev` to `curr` and `curr` to `f`.
--6. After the loop, `prev` will point to the new head of the reversed list. Return `prev`.
+- 1. Initialize two pointers `prev` and `curr` to `NULL` and `head` respectively.
+- 2. Traverse the list until `curr` becomes `NULL`.
+- 3. Inside the loop, store the next node of `curr` in a temporary variable `f`.
+- 4. Set the next pointer of `curr` to `prev`.
+- 5. Move `prev` to `curr` and `curr` to `f`.
+- 6. After the loop, `prev` will point to the new head of the reversed list. Return `prev`.
 
 ### Time Complexity:
 The time complexity of reversing a linked list iteratively is O(n), where 'n' is the number of nodes in the list, as it requires traversing the entire list once.
