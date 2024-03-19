@@ -540,6 +540,50 @@ public:
 **Time Complexity:O(n)** as it requires traversing the entire list once.
 
 
+## Reverse a Linked List (Recursive)
+
+This function reverses a given singly linked list recursively and returns the head of the reversed list.
+
+```cpp
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        if (head == NULL || head->next == NULL) {
+            return head; // Base case: If the list is empty or has only one node, return the head
+        }
+        
+        // Recursively reverse the sublist starting from the next node
+        ListNode* newHead = reverseList(head->next);
+        
+        // Reverse the pointers
+        head->next->next = head; // Reverse the next node's pointer to point back to the current node
+        head->next = NULL; // Set the current node's pointer to NULL to make it the new tail
+        
+        return newHead; // Return the head of the reversed list
+    }
+};
+```
+Approach:
+- The function uses recursion to reverse the sublist starting from the next node.
+- If the list is empty or has only one node, it returns the head without modification.
+- Otherwise, it recursively reverses the sublist starting from the next node.
+- After the recursion returns, it reverses the pointers of the current node and its next node to complete the reversal.
+- Finally, it returns the head of the reversed list.
+
+Time Complexity:
+- The time complexity of reversing a linked list recursively is O(n), where 'n' is the number of nodes in the list. This is because the algorithm recursively traverses the entire list once.
+
+
 ## 141.Detect a Loop in a Linked List
 
 This function detects if a given singly linked list contains a cycle (i.e., a loop) or not.
